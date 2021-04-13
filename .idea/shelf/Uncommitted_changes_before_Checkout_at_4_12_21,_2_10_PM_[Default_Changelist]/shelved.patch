@@ -1,0 +1,125 @@
+Index: index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <title>Vue Mastery</title>\n    <!-- Import Styles -->\n    <link rel=\"stylesheet\" href=\"./assets/styles.css\" />\n    <!-- Import Vue.js -->\n    <script src=\"https://unpkg.com/vue@3.0.11/dist/vue.global.js\"></script>\n  </head>\n  <body>\n    <div id=\"app\">\n      <div class=\"nav-bar\"></div>\n\n      <div class=\"cart\">Cart({{ cart }})</div>\n      \n      <div class=\"product-display\">\n        <div class=\"product-container\">\n          <div class=\"product-image\">\n            <img v-bind:src=\"image\">\n          </div>\n          <div class=\"product-info\">\n            <h1>{{ product }}</h1>\n            <p v-if=\"inStock\">In Stock</p>\n            <p v-else>Out of Stock</p>\n            <ul>\n              <li v-for=\"detail in details\">{{ detail }}</li>\n            </ul>\n\n            <div \n              v-for=\"variant in variants\" \n              :key=\"variant.id\" \n              @mouseover=\"updateImage(variant.image)\" \n            >{{ variant.color }}</div>\n            <button class=\"button\" @click=\"addToCart\">Add to Cart</button>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <!-- Import App -->\n    <script src=\"./main.js\"></script>\n\n    <!-- Mount App -->\n    <script>\n      const mountedApp = app.mount('#app')\n    </script>\n  </body>\n</html>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/index.html b/index.html
+--- a/index.html	(revision dbf00bb4a387075d50f417466192cc60a48dfceb)
++++ b/index.html	(date 1618261209965)
+@@ -6,7 +6,7 @@
+     <!-- Import Styles -->
+     <link rel="stylesheet" href="./assets/styles.css" />
+     <!-- Import Vue.js -->
+-    <script src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"></script>
++    <script src="https://unpkg.com/vue@next"></script>
+   </head>
+   <body>
+     <div id="app">
+@@ -31,8 +31,13 @@
+               v-for="variant in variants" 
+               :key="variant.id" 
+               @mouseover="updateImage(variant.image)" 
+-            >{{ variant.color }}</div>
+-            <button class="button" @click="addToCart">Add to Cart</button>
++              class="color-circle"
++              :style="{ backgroundColor: variant.color }"
++            ></div>
++            <button class="button"
++                    :class="{ disabledButton: !inStock }"
++                    :disabled="!inStock"
++                    @click="addToCart">Add to Cart</button>
+           </div>
+         </div>
+       </div>
+Index: main.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>const app = Vue.createApp({\n    data() {\n        return {\n            cart:0,\n            product: 'Socks',\n            brand: 'Vue Mastery',\n            image: './assets/images/socks_blue.jpg',\n            inStock: false,\n            details: ['50% cotton', '30% wool', '20% polyester'],\n            variants: [\n              { id: 2234, color: 'green', image: './assets/images/socks_green.jpg' },\n              { id: 2235, color: 'blue', image: './assets/images/socks_blue.jpg' },\n            ]\n        }\n    },\n    methods: {\n        addToCart() {\n            this.cart += 1\n        },\n        updateImage(variantImage) {\n            this.image = variantImage\n        }\n    }\n})\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/main.js b/main.js
+--- a/main.js	(revision dbf00bb4a387075d50f417466192cc60a48dfceb)
++++ b/main.js	(date 1618260817812)
+@@ -1,4 +1,4 @@
+-const app = Vue.createApp({
++        const app = Vue.createApp({
+     data() {
+         return {
+             cart:0,
+Index: .idea/Intro-to-Vue-3.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/Intro-to-Vue-3.iml b/.idea/Intro-to-Vue-3.iml
+new file mode 100644
+--- /dev/null	(date 1618256390849)
++++ b/.idea/Intro-to-Vue-3.iml	(date 1618256390849)
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="WEB_MODULE" version="4">
++  <component name="NewModuleRootManager">
++    <content url="file://$MODULE_DIR$">
++      <excludeFolder url="file://$MODULE_DIR$/temp" />
++      <excludeFolder url="file://$MODULE_DIR$/.tmp" />
++      <excludeFolder url="file://$MODULE_DIR$/tmp" />
++    </content>
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++</module>
+\ No newline at end of file
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+--- /dev/null	(date 1618256390855)
++++ b/.idea/modules.xml	(date 1618256390855)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/Intro-to-Vue-3.iml" filepath="$PROJECT_DIR$/.idea/Intro-to-Vue-3.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1618256390858)
++++ b/.idea/vcs.xml	(date 1618256390858)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1618256390990)
++++ b/.idea/.gitignore	(date 1618256390990)
+@@ -0,0 +1,5 @@
++# Default ignored files
++/shelf/
++/workspace.xml
++# Editor-based HTTP Client requests
++/httpRequests/
